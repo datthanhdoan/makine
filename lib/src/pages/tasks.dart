@@ -1,5 +1,6 @@
 // Thêm các thư viện cần thiết
 import 'dart:ffi';
+import 'dart:ui' as ui;
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
@@ -122,13 +123,14 @@ class _TaskPageState extends State<TaskPage> {
                   hintText: '',
                 ),
                 autofocus: false,
-                maxLines: 17,
-                // textInputAction: TextInputAction.newline,
+                maxLines: 16,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
                 cursorColor: Color.fromARGB(255, 56, 50, 0),
-                // maxLines: 10,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter a title :)';
+                    return 'Hãy nhập nội dung:)';
                   }
                   return null;
                 },
@@ -158,7 +160,7 @@ class _TaskPageState extends State<TaskPage> {
         ),
         onPressed: _saveTask,
         child: Icon(
-          Icons.data_saver_off_sharp,
+          Icons.save_alt_rounded,
           size: 26.0,
         ),
       ),
@@ -351,52 +353,72 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: SizedBox(
-          width: 250.0,
-          child: DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w300,
-              color: Color.fromARGB(255, 7, 7, 7),
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                TypewriterAnimatedText(
-                  'Makine Note',
-                  speed: const Duration(milliseconds: 250),
+      appBar: PreferredSize(
+        preferredSize: ui.Size.fromHeight(200.0),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 13,
+          flexibleSpace: ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/image/MainBackground.png'),
+                  fit: BoxFit.cover,
                 ),
-                TypewriterAnimatedText(
-                  'Have a good day 😊 !',
-                  speed: const Duration(milliseconds: 250),
+              ),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(15, 190, 0, 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Makine Note 🖋",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: ui.Color.fromARGB(255, 1, 1, 0),
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.5),
+                              offset: Offset(0, 0),
+                              blurRadius: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-              isRepeatingAnimation: false,
-              repeatForever: true,
-              pause: const Duration(milliseconds: 1000),
+              ),
             ),
-          ),
-        ),
-        elevation: 10.0,
-        shadowColor: Color.fromARGB(255, 255, 255, 172),
-        backgroundColor: Color.fromARGB(180, 239, 207, 113),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(15.0),
-            bottomRight: Radius.circular(15.0),
           ),
         ),
       ),
       body: ValueListenableBuilder<Box<Task>>(
         valueListenable: Hive.box<Task>('tasks').listenable(),
         builder: (context, box, _) {
+          List<Task> tasks = box.values.toList();
+          tasks.sort((a, b) => a.dueDate.compareTo(b.dueDate));
           return ListView.builder(
-            itemCount: box.length,
+            itemCount: tasks.length,
             itemBuilder: (context, index) {
-              final task = box.getAt(index)!;
+              final task = tasks[index];
+              final now = DateTime.now();
+              final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+              final endOfWeek = startOfWeek.add(Duration(days: 6));
+              final isThisWeek = task.dueDate.isAfter(startOfWeek) &&
+                  task.dueDate.isBefore(endOfWeek);
+              final subtitle = isThisWeek ? 'In this week' : 'Up coming';
               return Dismissible(
                 key: Key(task.title),
-                direction: DismissDirection.endToStart,
+                direction: task.isDone
+                    ? DismissDirection.endToStart
+                    : DismissDirection.none,
                 onDismissed: (direction) {
                   box.deleteAt(index);
                 },
@@ -420,8 +442,8 @@ class HomePage extends StatelessWidget {
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
-                      side:
-                          BorderSide(color: Color.fromARGB(255, 235, 234, 221)),
+                      side: BorderSide(
+                          color: ui.Color.fromARGB(255, 255, 255, 255)),
                     ),
                     elevation: 10.0,
                     child: ListTile(
@@ -463,7 +485,17 @@ class HomePage extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontSize: 11.0,
-                              color: Colors.grey,
+                              color: ui.Color.fromARGB(115, 11, 10, 6),
+                            ),
+                          ),
+                          Text(
+                            subtitle,
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 11.0,
+                              color: isThisWeek
+                                  ? Colors.green
+                                  : ui.Color.fromARGB(255, 217, 157, 83),
                             ),
                           ),
                         ],
@@ -493,7 +525,7 @@ class HomePage extends StatelessWidget {
                     (context, animation, secondaryAnimation, child) {
                   const begin = Offset(1.0, 0.0);
                   const end = Offset.zero;
-                  const curve = Curves.ease;
+                  const curve = Curves.fastOutSlowIn;
 
                   var tween = Tween(begin: begin, end: end)
                       .chain(CurveTween(curve: curve));
@@ -506,28 +538,28 @@ class HomePage extends StatelessWidget {
               ));
         },
         child: Icon(
-          Icons.library_add_check_outlined,
-          size: 26.0,
+          Icons.add,
+          size: 20.0,
         ),
       ),
     );
   }
 }
 
-Route _createRoute() {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => TaskPage(),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(0.0, 1.0);
-      const end = Offset.zero;
-      const curve = Curves.ease;
+// Route _createRoute() {
+//   return PageRouteBuilder(
+//     pageBuilder: (context, animation, secondaryAnimation) => TaskPage(),
+//     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+//       const begin = Offset(0.0, 1.0);
+//       const end = Offset.zero;
+//       const curve = Curves.ease;
 
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+//       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
-}
+//       return SlideTransition(
+//         position: animation.drive(tween),
+//         child: child,
+//       );
+//     },
+//   );
+// }
