@@ -2,7 +2,6 @@ import 'package:Makine/src/pages/chart.dart';
 import 'package:flutter/material.dart';
 import 'package:Makine/src/pages/tasks.dart';
 import 'package:Makine/src/pages/timer.dart';
-import 'package:Makine/src/pages/play.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class NoteApp extends StatefulWidget {

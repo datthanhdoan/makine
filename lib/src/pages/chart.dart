@@ -36,8 +36,25 @@ class TaskChart extends StatelessWidget {
         }
       }
     }
-    final percentTasks = (completedTasks / allTasks) * 100;
-    final percentTotals = (totalsCp / totals) * 100;
+
+    // Phần trăm số task đã hoàn thành / chưa hoàn thành TRONG TUẦN
+
+    final percentTasks;
+    if (allTasks == 0) {
+      percentTasks = 0;
+    } else {
+      percentTasks = (completedTasks / allTasks) * 100;
+    }
+
+    // Phần trăm số task đã hoàn thành / chưa hoàn thành
+    final percentTotals;
+    if (totals == 0) {
+      percentTotals = 0;
+    } else {
+      percentTotals = (totalsCp / totals) * 100;
+    }
+
+    // Nếu hoàn thiện toàn bộ task thì sẽ có hiệu ứng chúc mừng
     if (percentTotals == 100) {
       _confettiController.play();
     }
