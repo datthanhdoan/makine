@@ -4,11 +4,16 @@
 // import 'package:hive/hive.dart';
 // import 'package:Makine/src/pages/tasks.dart';
 
-// class TaskChart extends StatelessWidget {
+// class TaskChart extends StatefulWidget {
 //   final List<Task> tasks;
 
 //   TaskChart({required this.tasks});
 
+//   @override
+//   State<TaskChart> createState() => _TaskChartState();
+// }
+
+// class _TaskChartState extends State<TaskChart> {
 //   @override
 //   Widget build(BuildContext context) {
 //     int incompleteTasks = 0;

@@ -113,7 +113,7 @@ class _TaskPageState extends State<TaskPage> {
                   SizedBox(width: 8.0),
                   IconButton(
                     onPressed: _showDatePicker,
-                    icon: Icon(Icons.alarm_add_outlined),
+                    icon: Icon(Icons.calendar_month_outlined),
                   )
                 ],
               ),
@@ -160,7 +160,7 @@ class _TaskPageState extends State<TaskPage> {
         ),
         onPressed: _saveTask,
         child: Icon(
-          Icons.save_alt_rounded,
+          Icons.done_sharp,
           size: 26.0,
         ),
       ),
@@ -359,7 +359,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 13,
           flexibleSpace: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(25),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -368,7 +368,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(15, 190, 0, 20),
+                padding: EdgeInsets.fromLTRB(15, 160, 0, 20),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Column(
@@ -376,17 +376,18 @@ class HomePage extends StatelessWidget {
                       Text(
                         "Makine Note 🖋",
                         style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: ui.Color.fromARGB(255, 1, 1, 0),
-                          shadows: [
-                            Shadow(
-                              color: Colors.black.withOpacity(0.5),
-                              offset: Offset(0, 0),
-                              blurRadius: 10,
-                            ),
-                          ],
-                        ),
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: ui.Color.fromARGB(255, 233, 233, 233),
+                            shadows: [
+                              Shadow(
+                                color: ui.Color.fromARGB(255, 0, 0, 0)
+                                    .withOpacity(0.9),
+                                offset: Offset(0, 0),
+                                blurRadius: 25,
+                              ),
+                            ],
+                            fontFamily: 'Quicksand'),
                       ),
                       SizedBox(
                         height: 5,
