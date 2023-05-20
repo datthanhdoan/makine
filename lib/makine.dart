@@ -23,7 +23,7 @@ class _NoteAppState extends State<NoteApp> {
   final List<Widget> _page = [
     HomePage(),
     TaskChart(tasks: []),
-    Timer(),
+    TimerPage(),
   ];
 
   @override

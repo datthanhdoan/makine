@@ -88,6 +88,11 @@ flutter:
     - assets/quote.txt
     - assets/image/MainBackground.png
     - assets/image/ChartAppBar.png
+    - assets/image/TimerAppBar.png
+    - assets/Faded.mp3
+    - assets/Rain-and-Thunderstorm.mp3
+    - assets/The-Name-Of-Life-Piano.mp3
+    - assets/Fire-Burning.mp3
   fonts:
     - family: Quicksand
       fonts:
