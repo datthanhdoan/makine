@@ -1,16 +1,13 @@
-# makine
+# Makine - NoteApp
 
-A new Flutter project.
+Một app được tạo dựa trên nền tảng [Flutter](https://flutter.dev/) 🐦
 
-## Getting Started
+Đây là bài lớn của nhóm 8 cho môn Kỹ Thuật Phần Mềm :
+Các Thành Viên:
+  - Đoàn Thanh Đạt ( Trưởng Nhóm )
+  - Phạm Quang Hùng
+  - Đỗ Hoàng Giang
+  - Lương Tú Đạt
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Demo App 🔥 :
+![1](https://github.com/datthanhdoan/makine/assets/90030004/9b6d60ec-3fee-4d3d-be7d-2cf4f4b2d3ee)
