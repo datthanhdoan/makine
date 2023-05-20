@@ -140,7 +140,7 @@ class TaskChart extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Incomplete: $allTasks ☕",
+                      "Incomplete: ${allTasks - completedTasks} ☕",
                       style: TextStyle(
                         fontSize: 18,
                         fontFamily: 'Quicksand',
