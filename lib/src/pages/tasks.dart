@@ -80,15 +80,50 @@ class _TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add New Note'),
-        elevation: 6.0,
-        backgroundColor: Color.fromARGB(255, 226, 202, 118),
-        foregroundColor: Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(15.0),
-            bottomRight: Radius.circular(15.0),
+      appBar: PreferredSize(
+        preferredSize: ui.Size.fromHeight(65.0),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 13,
+          flexibleSpace: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/image/MainBackground.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Add New Note",
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: ui.Color.fromARGB(255, 233, 233, 233),
+                            shadows: [
+                              Shadow(
+                                color: ui.Color.fromARGB(255, 0, 0, 0)
+                                    .withOpacity(0.9),
+                                offset: Offset(0, 0),
+                                blurRadius: 25,
+                              ),
+                            ],
+                            fontFamily: 'Quicksand'),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -123,10 +158,11 @@ class _TaskPageState extends State<TaskPage> {
                   hintText: '',
                 ),
                 autofocus: false,
-                maxLines: 16,
+                maxLines: 14,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                    // fontWeight: FontWeight.bold,
+                    // fontSize: 14,
+                    ),
                 cursorColor: Color.fromARGB(255, 56, 50, 0),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -154,7 +190,7 @@ class _TaskPageState extends State<TaskPage> {
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
-          primary: Color.fromARGB(255, 239, 211, 127),
+          primary: Color.fromARGB(255, 231, 221, 188),
           onPrimary: Colors.black,
           padding: EdgeInsets.all(17.0),
         ),
@@ -215,35 +251,50 @@ class _EditTaskState extends State<EditTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: SizedBox(
-          width: 250.0,
-          child: DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w300,
-              color: Color.fromARGB(255, 7, 7, 7),
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                TypewriterAnimatedText(
-                  'Edit Your Note',
-                  speed: const Duration(milliseconds: 150),
+      appBar: PreferredSize(
+        preferredSize: ui.Size.fromHeight(65.0),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 13,
+          flexibleSpace: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/image/MainBackground.png'),
+                  fit: BoxFit.cover,
                 ),
-              ],
-              isRepeatingAnimation: false,
-              repeatForever: true,
-              pause: const Duration(milliseconds: 1000),
+              ),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Edit Note",
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: ui.Color.fromARGB(255, 233, 233, 233),
+                            shadows: [
+                              Shadow(
+                                color: ui.Color.fromARGB(255, 0, 0, 0)
+                                    .withOpacity(0.9),
+                                offset: Offset(0, 0),
+                                blurRadius: 25,
+                              ),
+                            ],
+                            fontFamily: 'Quicksand'),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-        elevation: 10.0,
-        shadowColor: Color.fromARGB(255, 255, 255, 172),
-        backgroundColor: Color.fromARGB(180, 239, 207, 113),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(15.0),
-            bottomRight: Radius.circular(15.0),
           ),
         ),
       ),
@@ -252,70 +303,44 @@ class _EditTaskState extends State<EditTask> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 5.0),
+              Row(
+                children: [
+                  SizedBox(width: 96.0),
+                  Text(
+                    DateFormat('dd MMM yyyy').format(_dueDate),
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  SizedBox(width: 8.0),
+                  IconButton(
+                    onPressed: _showDatePicker,
+                    icon: Icon(Icons.calendar_month_outlined),
+                  )
+                ],
+              ),
               TextFormField(
                 initialValue: _title,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Vui lòng nhập tiêu đề.';
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Hãy nhập nội dung:)';
                   }
                   return null;
                 },
                 onSaved: (value) {
                   _title = value!;
                 },
-                style: TextStyle(fontSize: 18.0),
-                decoration: InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(255, 48, 37, 3),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                        color: Color.fromARGB(255, 56, 50, 0), width: 1.5),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide:
-                        BorderSide(color: Colors.yellow), // Change color here
-                  ),
+                decoration: InputDecoration.collapsed(
+                  hintText: '',
+                ),
+                autofocus: false,
+                maxLines: 14,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  // fontSize: 14,
                 ),
                 cursorColor: Color.fromARGB(255, 56, 50, 0),
-                maxLines: 12,
               ),
-              SizedBox(height: 10.0),
-              GestureDetector(
-                onTap: _showDatePicker,
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.calendar_today,
-                      color: Color.fromARGB(255, 37, 76, 73),
-                    ),
-                    SizedBox(width: 16.0),
-                    Text(
-                      DateFormat('dd MMM yyyy').format(_dueDate),
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                    SizedBox(width: 8.0),
-                    TextButton(
-                      onPressed: _showDatePicker,
-                      child:
-                          Text('Change', style: TextStyle(color: Colors.black)),
-                    ),
-                  ],
-                ),
-              ),
-              // SizedBox(height: 10.0),
-              // SizedBox(
-              //   height: 200.0,
-              //   width: 200.0,
-              //   child: Container(
-              //     color: Colors.transparent,
-              //     child: Lottie.asset('assets/writing.json'),
-              //   ),
-              // ),
             ],
           ),
         ),
@@ -323,7 +348,7 @@ class _EditTaskState extends State<EditTask> {
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
-          primary: Color.fromARGB(255, 239, 211, 127),
+          primary: Color.fromARGB(255, 231, 221, 188),
           onPrimary: Colors.black,
           padding: EdgeInsets.all(17.0),
         ),
@@ -339,7 +364,7 @@ class _EditTaskState extends State<EditTask> {
           }
         },
         child: Icon(
-          Icons.data_saver_off_sharp,
+          Icons.done_sharp,
           size: 26.0,
         ),
       ),
@@ -368,7 +393,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(15, 160, 0, 20),
+                padding: EdgeInsets.only(left: 20, top: 130),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Column(
@@ -512,7 +537,7 @@ class HomePage extends StatelessWidget {
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
-          primary: Color.fromARGB(255, 230, 203, 121),
+          primary: ui.Color.fromARGB(255, 231, 221, 188),
           onPrimary: Color.fromARGB(255, 57, 56, 56),
           padding: EdgeInsets.all(20.0),
         ),

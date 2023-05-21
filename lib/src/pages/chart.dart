@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -73,34 +72,34 @@ class TaskChart extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(15, 160, 0, 20),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    children: [
-                      Text(
-                        "Makine Note 🖋",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 1, 1, 0),
-                          shadows: [
-                            Shadow(
-                              color: Colors.black.withOpacity(0.5),
-                              offset: Offset(0, 0),
-                              blurRadius: 10,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // child: Padding(
+              //   padding: EdgeInsets.fromLTRB(15, 160, 0, 20),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: Column(
+              //       children: [
+              //         Text(
+              //           "Makine Note 🖋",
+              //           style: TextStyle(
+              //             fontSize: 22,
+              //             fontWeight: FontWeight.bold,
+              //             color: Color.fromARGB(255, 1, 1, 0),
+              //             shadows: [
+              //               Shadow(
+              //                 color: Colors.black.withOpacity(0.5),
+              //                 offset: Offset(0, 0),
+              //                 blurRadius: 10,
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //         SizedBox(
+              //           height: 5,
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ),
           ),
         ),
@@ -108,7 +107,7 @@ class TaskChart extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 240, 240, 240),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.only(left: 15, right: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -159,19 +158,30 @@ class TaskChart extends StatelessWidget {
                   ],
                 ),
               ),
-              CircularPercentIndicator(
-                animation: true,
-                animationDuration: 3000,
-                radius: 115,
-                lineWidth: 35,
-                percent: percentTasks / 100,
-                progressColor: Color.fromARGB(255, 120, 150, 44),
-                backgroundColor: Color.fromARGB(255, 223, 224, 191),
-                circularStrokeCap: CircularStrokeCap.round,
-                center: Text(
-                  ' ${percentTasks.toStringAsFixed(0)}%',
-                  style: TextStyle(
-                      fontSize: 55, color: Color.fromARGB(255, 59, 55, 23)),
+              ShaderMask(
+                shaderCallback: (bounds) => LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 182, 200, 136),
+                    Color.fromARGB(255, 104, 138, 19),
+                  ],
+                  stops: [0.0, 1.0],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ).createShader(bounds),
+                child: CircularPercentIndicator(
+                  animation: true,
+                  animationDuration: 2000,
+                  radius: 115,
+                  lineWidth: 35,
+                  percent: percentTasks / 100,
+                  progressColor: Color.fromARGB(255, 84, 188, 87),
+                  backgroundColor: Color.fromARGB(255, 223, 224, 191),
+                  circularStrokeCap: CircularStrokeCap.round,
+                  center: Text(
+                    ' ${percentTasks.toStringAsFixed(0)}%',
+                    style: TextStyle(
+                        fontSize: 55, color: Color.fromARGB(255, 59, 55, 23)),
+                  ),
                 ),
               ),
               Text(
@@ -182,18 +192,32 @@ class TaskChart extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              LinearPercentIndicator(
-                animation: true,
-                animationDuration: 3000,
-                lineHeight: 20,
-                padding: EdgeInsets.only(left: 50, right: 50),
-                barRadius: Radius.circular(30),
-                percent: percentTotals / 100,
-                progressColor: Color.fromARGB(255, 82, 110, 14),
-                backgroundColor: Color.fromARGB(255, 223, 224, 191),
-                center: Text(
-                  ' ${percentTotals.toStringAsFixed(0)}%',
-                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ShaderMask(
+                shaderCallback: (bounds) => LinearGradient(
+                  colors: [
+                    Color(0xFF78962C),
+                    Color(0xFF526E0E),
+                  ],
+                  stops: [0.0, 1.0],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ).createShader(bounds),
+                child: LinearPercentIndicator(
+                  animation: true,
+                  animationDuration: 2000,
+                  center: Text(
+                    ' ${percentTotals.toStringAsFixed(0)}%',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  lineHeight: 20,
+                  padding: EdgeInsets.only(left: 50, right: 50),
+                  barRadius: Radius.circular(30),
+                  percent: percentTotals / 100,
+                  progressColor: Color.fromARGB(255, 84, 188, 87),
+                  backgroundColor: Color.fromARGB(255, 223, 224, 191),
                 ),
               ),
             ],
