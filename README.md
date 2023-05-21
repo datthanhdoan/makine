@@ -7,7 +7,6 @@ Các Thành Viên:
   - Đoàn Thanh Đạt ( Trưởng Nhóm )
   - Phạm Quang Hùng
   - Đỗ Hoàng Giang
-  - Lương Tú Đạt
 
 Demo App 🔥 :
 ![1](https://github.com/datthanhdoan/makine/assets/90030004/9b6d60ec-3fee-4d3d-be7d-2cf4f4b2d3ee)
