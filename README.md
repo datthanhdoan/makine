@@ -4,7 +4,7 @@ Một app được tạo dựa trên nền tảng [Flutter](https://flutter.dev/
 
 Đây là bài lớn của nhóm 8 cho môn Kỹ Thuật Phần Mềm :
 Các Thành Viên:
-  - Đoàn Thanh Đạt ( Trưởng Nhóm )
+  - Đoàn Thành Đạt ( Trưởng Nhóm )
   - Phạm Quang Hùng
   - Đỗ Hoàng Giang
 
